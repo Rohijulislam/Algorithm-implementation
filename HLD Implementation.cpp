@@ -1,3 +1,8 @@
+/*
+code was tested on
+https://www.spoj.com/problems/QTREE/
+*/
+
 #include<bits/stdc++.h>
 using namespace std;
 #define N 10100
