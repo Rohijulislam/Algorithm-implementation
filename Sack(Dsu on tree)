@@ -35,6 +35,7 @@ void dsu(int n,int p,bool ck)
         {
             mx=siz[v[n][i]];
             bc=v[n][i];
+            
         }
     }
 
