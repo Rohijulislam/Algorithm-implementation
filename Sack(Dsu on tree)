@@ -1,0 +1,124 @@
+#include<bits/stdc++.h>
+using  namespace std;
+#define ll long long
+#define sz 500009
+vector<int>v[sz];
+vector<pair<int,int> >query[sz];
+int st[sz],ft[sz],vt[2*sz],siz[sz],tim=0,freq[sz][26],lev[sz];
+bool ans[sz];
+char s[sz];
+
+void dfs(int n,int p,int l)
+{
+    st[n]=++tim;vt[tim]=n;siz[n]++;lev[n]=l;
+    for(ll i=0; i<v[n].size(); i++)
+    {
+        if(v[n][i]!=p)
+        {
+            dfs(v[n][i],n,lev[n]+1);
+            siz[n]+=siz[v[n][i]];
+        }
+    }
+
+    ft[n]=++tim;
+
+}
+
+
+void dsu(int n,int p,bool ck)
+{
+    int mx=-1,bc=-1,i,k,j;
+
+    for(i=0; i<v[n].size(); i++)
+    {
+        if(v[n][i]!=p&&siz[v[n][i]]>mx)
+        {
+            mx=siz[v[n][i]];
+            bc=v[n][i];
+        }
+    }
+
+    for(i=0; i<v[n].size(); i++)
+    {
+        if(v[n][i]!=p&&v[n][i]!=bc)
+            dsu(v[n][i],n,0);
+    }
+
+
+    if(bc!=-1)
+        dsu(bc,n,1);
+
+    for(i=0; i<v[n].size(); i++)
+    {
+        if(v[n][i]!=bc&&v[n][i]!=p)
+        {
+
+            for(j=st[v[n][i]]; j<ft[v[n][i]]; j++)
+            {
+                k=vt[j];
+                if(k)
+                {
+                    freq[lev[k]][s[k]-'a']++;
+                }
+            }
+        }
+    }
+
+
+    freq[lev[n]][s[n]-'a']++;
+
+
+    for(i=0;i<query[n].size();i++)
+    {
+        int a=query[n][i].first;
+        int b=query[n][i].second;
+        k=0;
+        for(j=0;j<26;j++)
+            if(freq[a][j]%2) k++;
+
+        if(k<2) ans[b]=1;
+
+    }
+
+
+    if(!ck)
+    {
+        for(j=st[n]; j<ft[n]; j++)
+        {
+            k=vt[j];
+            if(k)
+            {
+                freq[lev[k]][s[k]-'a']--;
+            }
+        }
+    }
+
+}
+
+
+int main()
+{
+    int n,m,q,i,j;
+    scanf("%d %d",&n,&q);
+    for(i=2; i<=n; i++)
+    {
+        scanf("%d", &j);
+        v[j].push_back(i);
+    }
+
+    scanf("%s", s+1);
+    for(i=1;i<=q;i++)
+    {
+        scanf("%d %d",&m,&j);
+        query[m].push_back(make_pair(j,i));
+    }
+
+
+    dfs(1,1,1);
+    dsu(1,1,1);
+
+    for(i=1;i<=q;i++)
+        printf(ans[i]==1?"Yes\n":"No\n");
+
+    return 0;
+}
