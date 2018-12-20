@@ -35,7 +35,6 @@ void dsu(int n,int p,bool ck)
         {
             mx=siz[v[n][i]];
             bc=v[n][i];
-            
         }
     }
 
@@ -123,3 +122,5 @@ int main()
 
     return 0;
 }
+
+// code is tested on problem  https://codeforces.com/contest/161/problem/D      
