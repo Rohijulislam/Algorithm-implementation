@@ -1,0 +1,92 @@
+
+//Longest palindrome substring
+// code is tested on https://www.spoj.com/problems/LPS/en/
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define base 1572872831
+#define mod  2367362171
+#define mod1  1000000007
+#define sz 3000009
+
+ll has[sz],rev[sz],po[sz],n,tex[sz];
+string s,text;
+
+void hcal()
+{
+
+    for(int i=0; i<n; i++)
+        has[i+1]=(has[i]+(s[i]-'a'+1)*po[i])%mod;
+
+    for(int i=n-1,j=0; i>=0; i--,j++)
+        rev[j+1]=(rev[j]+(s[i]-'a'+1)*po[j])%mod;
+}
+
+
+void pcal()
+{
+    po[0]=1;
+    for(int i=1; i<n; i++)
+        po[i]=(po[i-1]*base+mod)%mod;
+
+
+}
+
+
+
+bool check(int j)
+{
+
+    int i,a=n-j,b;
+    ll cp,rcp;
+    for(i=0; i+j<=n;i++)
+        {
+            cp=(has[i+j]-has[i]+mod)%mod;
+            rcp=(rev[n-i]-rev[n-i-j]+mod)%mod;
+            if(a>=0)
+                cp*=po[a],cp%=mod;
+             else
+                rcp*=po[-a],rcp%=mod;
+            if(cp==rcp)
+                return true;
+
+          a-=2;
+        }
+
+   return false;
+}
+
+
+int main()
+{
+    int i,j,k,flag,ans,lo,hi,mid;
+    ll val,cp;
+
+       cin>>n>>s;val=ans=0;
+        pcal();hcal();
+
+         lo=1;hi=n;
+         while(lo<=hi)
+         {
+
+             mid=(lo+hi)/2;
+             if(check(mid))
+             {
+                ans=max(ans,mid);
+                lo=mid+1;
+             }
+
+             else if(mid<n&&check(mid+1))
+             {
+                    ans=max(ans,mid+1);
+                    lo=mid+2;
+             }
+
+             else
+                hi=mid-1;
+         }
+
+         printf("%d\n",ans);
+
+    return 0;
+}
