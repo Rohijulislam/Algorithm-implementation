@@ -1,0 +1,83 @@
+//Code is tested on https://codeforces.com/contest/486/problem/E 
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100009
+vector<int>v,ans;
+int arr[sz],revarr[sz];
+int li[sz],ld[sz],freq[sz];
+void lis(int n)
+{
+    v.clear();
+    v.push_back(-sz);
+    int k;
+    for(int i=1; i<=n; i++)
+    {
+        if(arr[i]>v[v.size()-1])
+        {
+            v.push_back(arr[i]);
+            li[i]=v.size()-1;
+            continue;
+        }
+
+        k=lower_bound(v.begin(),v.end(),arr[i])-v.begin();
+        li[i]=k;
+        v[k]=arr[i];
+    }
+}
+
+void lds(int n)
+{
+    v.clear();
+    v.push_back(-sz);
+    int k;
+    for(int i=1; i<=n; i++)
+    {
+        if(revarr[i]>v[v.size()-1])
+        {
+            v.push_back(revarr[i]);
+            ld[i]=v.size()-1;
+            continue;
+        }
+
+        k=lower_bound(v.begin(),v.end(),revarr[i])-v.begin();
+        ld[i]=k;
+        v[k]=revarr[i];
+    }
+}
+
+int main()
+{
+    int n,i,p;
+    scanf("%d",&n);
+    for(i=1; i<=n; i++)
+    {
+        scanf("%d",&arr[i]);
+        revarr[n-i+1]=-arr[i];
+    }
+    lis(n);
+    p=v.size()-1;
+    lds(n);
+    ans.clear();
+    for(i=1; i<=n; i++)
+    {
+        if(li[i]+ld[n-i+1]==p+1)
+            freq[li[i]]++;
+    }
+    for(i=1; i<=n; i++)
+    {
+        if(li[i]+ld[n-i+1]==p+1)
+        {
+            if(freq[li[i]]==1)
+                printf("3");
+            else
+                printf("2");
+        }
+
+        else
+            printf("1");
+    }
+
+
+
+    return 0;
+}
