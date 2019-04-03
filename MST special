@@ -1,0 +1,95 @@
+
+// Code is tested on https://codeforces.com/problemset/problem/1108/F
+
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 200009
+struct node
+{
+    int u,v,w;
+    node() {}
+    node(int a,int b,int c)
+    {
+        u=a;
+        v=b;
+        w=c;
+    }
+
+    bool operator <(const node &x) const
+    {
+        return w<x.w;
+    }
+};
+vector<node>v;
+vector<node>sp;
+int par[sz],ans,r_size[sz];
+
+
+int find_root(int x)
+{
+    if(par[x]==x)
+        return x;
+    else
+        return par[x]=find_root(par[x]);
+}
+
+
+
+int main()
+{
+
+    int n,m,i,a,b,c,j,k;
+    scanf("%d %d",&n,&m);
+    for(i=1; i<=n; i++)
+        par[i]=i,r_size[i]=1;
+    for(i=1; i<=m; i++)
+    {
+        scanf("%d %d %d",&a,&b,&c);
+        v.push_back(node(a,b,c));
+    }
+    sort(v.begin(),v.end());
+    for(i=0; i<m; i++)
+    {
+        j=i;
+        while(j<m&&v[j].w==v[i].w)
+            j++;
+        j--;
+
+        for(k=i; k<=j; k++)
+        {
+            a=find_root(v[k].u);
+            b=find_root(v[k].v);
+            if(a==b)
+                continue;
+            sp.push_back(v[k]);
+        }
+
+        for(k=0; k<sp.size(); k++)
+        {
+            a=find_root(sp[k].u);
+            b=find_root(sp[k].v);
+            if(a==b)
+            {
+                ans++;
+                continue;
+            }
+            if(r_size[a]>=r_size[b])
+            {
+                par[b]=par[a];
+                r_size[a]+=r_size[b];
+            }
+            else
+            {
+                par[a]=par[b];
+                r_size[b]+=r_size[a];
+            }
+        }
+
+        i=j;
+        sp.clear();
+
+    }
+    printf("%d\n",ans);
+
+    return 0;
+}
