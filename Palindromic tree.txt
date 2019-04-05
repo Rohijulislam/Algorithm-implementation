@@ -1,0 +1,85 @@
+
+pass:   pcgames15.com
+
+I - XOR IT! Gym - 221827B 
+https://vjudge.net/contest/218121#problem/I
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 1000000
+struct node
+{
+    int length,bedge,fedge[26],cnt;
+
+}tree[sz];                            ///a node can have different forward edge but back edge will be always 1
+
+
+string s;
+int nodecount=2,last;
+
+void add(int pos)
+{
+    int p,curlen,cur=last;
+
+     while (true) {
+            curlen = tree[cur].length;
+            if (pos - 1 - curlen >= 0 && s[pos - 1 - curlen] == s[pos])
+                break;
+            cur = tree[cur].bedge;
+        }
+
+
+        p=s[pos]-'a';
+        if (tree[cur].fedge[p]) {
+            last = tree[cur].fedge[p];
+            ///For finding total number of palindromes
+            tree[last].cnt++;
+            ///For finding total number of palindromes
+            return ;
+        }
+
+        nodecount++;last=nodecount;
+        tree[last].length = tree[cur].length + 2;
+        tree[cur].fedge[p] =last;
+
+        if (tree[last].length == 1) {
+            tree[last].bedge = 2;
+            ///For finding total number of palindromes
+            tree[last].cnt = 1;
+            ///For finding total number of palindromes
+            return ;
+        }
+
+
+        while (true) {
+            cur = tree[cur].bedge;
+            curlen = tree[cur].length;
+            if (pos - 1 - curlen >= 0 && s[pos - 1 - curlen] == s[pos]) {
+                tree[last].bedge = tree[cur].fedge[p];
+                break;
+            }
+        }
+
+        tree[last].cnt=1;
+
+
+}
+
+
+
+int main()
+{
+    int i;
+    tree[1].bedge=1;
+    tree[1].length=-1;
+    tree[2].bedge=1;
+    tree[2].length=tree[1].cnt=tree[2].cnt=0;
+    last=1;
+    cin>>s;
+    for(i=0;i<s.size();i++)
+        add(i);
+
+
+    return 0;
+}
