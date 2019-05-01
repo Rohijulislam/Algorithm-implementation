@@ -1,0 +1,142 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define mod 1000000007
+#define sz  200009
+#define pf      printf
+#define pi(a)   printf("%d\n",a)
+#define pl(a)   printf("%lld\n",a)
+#define sf      scanf
+#define si(a)   scanf("%d",&a)
+#define sl(a)   scanf("%lld",&a)
+#define pb      push_back
+#define mp      make_pair
+#define ll      long long
+#define ff           first
+#define ss           second
+#define inf                  1e18
+#define INF                  (1LL<<62)
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define sorted(s)            sort(s.begin(),s.end())
+#define faster()                  ios_base::sync_with_stdio(false);cin.tie(NULL)
+int arr[sz];
+vector<int>v;
+string s;
+int main()
+{
+    int i,n,a,b,ans=0;
+    si(n);
+    for(i=0;i<n;i++)
+        si(arr[i]);
+    for(i=0;i<n;i++)
+
+    {
+
+    }
+    pi(ans);
+    return 0;
+}
+
+
+
+
+MY template
+
+#include<bits/stdc++.h>
+using namespace std;
+#define sz 100005
+#define faster                  ios_base::sync_with_stdio(false);cin.tie(NULL);
+#define FOR(i,a,b) for (int i=(a); i < b; i++)
+#define pf           printf
+#define ff           first
+#define ss           second
+#define pb           push_back
+#define mp           make_pair
+#define ll           long long
+#define si(n)        scanf("%d", &n);
+#define sl(n)       scanf("%I64d", &n);
+#define pi(n)        printf("%d\n", n);
+#define pl(n)        printf("%I64d\n",n);
+#define pii pair<int,int>
+#define pll pair<ll,ll>
+#define sorted(s)            sort(s.begin(),s.end())
+#define MOD                  1000000007
+#define inf                  1e18
+#define INF                  (1LL<<62)
+
+const int N = 1e5 + 100;
+const double eps = 1e-7;
+const double PI = acos(-1.0);
+int arr[sz],tree[3*sz];
+
+template<class T>
+inline bool scan(T &x)
+{
+    int c=getchar();
+    int sgn=1;
+    while(~c&&c<'0'|c>'9')
+    {
+        if(c=='-')sgn=-1;
+        c=getchar();
+    }
+    for(x=0; ~c&&'0'<=c&&c<='9'; c=getchar())
+        x=x*10+c-'0';
+    x*=sgn;
+    return ~c;
+}
+
+char buf[20];
+void output(int x) {
+    int cnt = 0;
+    do {
+        int y = x/10;
+        buf[cnt++] = x - 10*y + '0';
+        x = y;
+    } while (x);
+    while (cnt--) putchar(buf[cnt]);
+    putchar('\n');
+}
+
+
+
+bool comparator(int i , int j)
+{
+    return (i < j);
+}
+
+ll power(ll x, ll i)
+{
+    ll ans = 1;
+    while(i > 0)
+    {
+        if(i&1)
+            ans = (ans*x)%MOD;
+        i >>=1;
+        x = (x*x)%MOD;
+    }
+    return ans;
+}
+
+ll power(ll x, ll i,ll mod)
+{
+    ll ans = 1;
+    while(i > 0)
+    {
+        if(i&1)
+            ans = (ans*x)%mod;
+        i >>=1;
+        x = (x*x)%mod;
+    }
+    return ans;
+}
+
+ll modInverse(ll x, ll mod)
+{
+    return power(x , mod-2,mod);
+}
+
+int main()
+{
+
+ return 0;
+}
