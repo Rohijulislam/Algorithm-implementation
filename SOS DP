@@ -1,0 +1,54 @@
+//memory efficient SOS DP
+//tutorial link: https://codeforces.com/blog/entry/45223
+// code is test on https://www.hackerearth.com/practice/algorithms/dynamic-programming/bit-masking/practice-problems/algorithm/special-pairs-7/
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+#define sz 100009
+#define mod 998244353 
+
+int arr[sz],freq[sz*10];
+ll sos[1<<22];
+
+
+int main()
+{
+    int i,n,a,j,t,mask;
+    scanf("%d",&t);
+    while(t--)
+    {
+        scanf("%d",&n);
+        memset(sos,0,sizeof(sos));
+
+        for(i=0;i<n;i++)
+        {
+            scanf("%d",&arr[i]);
+            sos[arr[i]]=++freq[arr[i]];
+        }
+
+
+
+        
+        for(i=0;i<22;i++)
+        {
+
+            for(mask=0;mask<(1<<22);mask++)
+            {
+                if(mask&(1<<i))
+                    sos[mask]+=sos[mask^(1<<i)];
+            }
+        }
+
+        ll ans=0;
+        a=(1<<22)-1;
+
+        for(i=0;i<n;i++)
+        {
+            ans+=sos[a^arr[i]];
+            freq[arr[i]]=0;
+        }
+        printf("%lld\n",ans);
+    }
+
+    return 0;
+}
