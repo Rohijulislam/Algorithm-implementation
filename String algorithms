@@ -1,0 +1,36 @@
+// Z algorithm
+vector<int> zalgo(string s)
+{
+    int n,l,r,i,j;
+    n=s.size();
+    vector<int>arr(n,0);
+    l=r=0;
+    for(i=1; i<n; i++)
+    {
+        if(i>r)
+        {
+            l=r=i;
+            while(r<n&&s[r-l]==s[r])
+                r++;
+            arr[i]=r-l;
+            r--;
+        }
+
+        else
+        {
+            if(arr[i-l]+i<=r)
+                arr[i]=arr[i-l];
+
+            else
+            {
+                l=i;
+                while(r<n&&s[r-l]==s[r])
+                    r++;
+                arr[i]=r-l;
+                r--;
+            }
+        }
+    }
+
+    return arr;
+}
