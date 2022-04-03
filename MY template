@@ -19,6 +19,7 @@ using namespace std;
 #define pll pair<ll,ll>
 #define sorted(s)            sort(s.begin(),s.end())
 #define faster()                  ios_base::sync_with_stdio(false);cin.tie(NULL)
+#define popcnt(x) popcount(uintmax_t(x))
 int arr[sz];
 vector<int>v;
 string s;
