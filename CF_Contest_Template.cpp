@@ -12,6 +12,13 @@ using namespace std;
 #define ClearBit(x, k) (x &= ~(1LL << k))
 #define CheckBit(x, k) (!!(x & (1LL << k)))
 #define mod 998244353
+// ordered_set necessary headers files.
+//  #include <ext/pb_ds/assoc_container.hpp>
+//  #include <ext/pb_ds/tree_policy.hpp>
+//  using namespace __gnu_pbds;
+//  template <typename T>
+//  using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
 const int SZ = 200005;
 vector<int> v[SZ];
 
